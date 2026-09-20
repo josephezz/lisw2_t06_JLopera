@@ -13,19 +13,17 @@ import java.util.Optional;
 @Service
 public class PersonaService implements BaseService<Persona>{
 
-    private PersonaRepository personaRepository;
+    private final PersonaRepository personaRepository;
 
-    public PersonaService(PersonaRepository persona){
+    public PersonaService(PersonaRepository personaRepository) {
         this.personaRepository = personaRepository;
     }
-
 
     @Override
     @Transactional
     public List<Persona> findAll() throws Exception {
         try {
-            List<Persona> entities = personaRepository.findAll();
-            return entities;
+            return personaRepository.findAll();
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
@@ -57,10 +55,14 @@ public class PersonaService implements BaseService<Persona>{
     @Transactional
     public Persona update(Long id, Persona entity) throws Exception {
         try {
-            Optional<Persona> entityOptional = personaRepository.findById(id);
-            Persona persona = entityOptional.get();
-            persona = personaRepository.save(persona);
-            return persona;
+            Persona persona = personaRepository.findById(id)
+                    .orElseThrow(() -> new Exception("Persona no encontrada"));
+
+            persona.setNombre(entity.getNombre());
+            persona.setApellido(entity.getApellido());
+            persona.setDni(entity.getDni());
+
+            return personaRepository.save(persona);
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }

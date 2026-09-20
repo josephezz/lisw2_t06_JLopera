@@ -18,10 +18,10 @@ import jakarta.persistence.TemporalType;
 import lombok.Data;
 
 import com.example.persona.config.CustomRevisionListener;
-import org.envers.annotations.RevisionEntity;
-import org.envers.annotations.RevisionNumber;
-import org.envers.annotations.RevisionTimestamp;
-import org.envers.annotations.Temporal;
+import org.hibernate.envers.RevisionEntity;
+import org.hibernate.envers.RevisionNumber;
+import org.hibernate.envers.RevisionTimestamp;
+import jakarta.persistence.Temporal;
 
 
 @Entity
@@ -36,11 +36,13 @@ public class Revision implements Serializable{
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="revision_seq")
     @SequenceGenerator(
             name="revision_seq",
-            sequenceName="rbac.seq_revision_id"
+            sequenceName="seq_revision_id",
+            allocationSize = 1
     )
     @RevisionNumber
     private int id;
 
+    @SuppressWarnings("deprecation")
     @Column(name="REVISION_DATE")
     @Temporal(TemporalType.TIMESTAMP)
     @RevisionTimestamp
