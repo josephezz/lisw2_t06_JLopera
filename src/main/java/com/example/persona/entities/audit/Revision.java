@@ -1,0 +1,49 @@
+package com.example.persona.entities.audit;
+
+import com.example.persona.config.CustomRevisionListener;
+import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+
+import java.io.Serializable;
+import java.util.Date;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
+import jakarta.persistence.TemporalType;
+import lombok.Data;
+
+import com.example.persona.config.CustomRevisionListener;
+import org.hibernate.annotations.RevisionEntity;
+import org.hibernate.annotations.RevisionNumber;
+import org.hibernate.annotations.RevisionTimestamp;
+import org.hibernate.annotations.Temporal;
+
+
+@Entity
+@Table(name="REVISION_INFO")
+@RevisionEntity(CustomRevisionListener.class)
+@Data
+public class Revision implements Serializable{
+
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="revision_seq")
+    @SequenceGenerator(
+            name="revision_seq",
+            sequenceName="rbac.seq_revision_id"
+    )
+    @RevisionNumber
+    private int id;
+
+    @Column(name="REVISION_DATE")
+    @Temporal(TemporalType.TIMESTAMP)
+    @RevisionTimestamp
+    private Date date;
+
+}
