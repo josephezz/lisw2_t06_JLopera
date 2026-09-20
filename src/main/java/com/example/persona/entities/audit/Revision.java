@@ -18,10 +18,10 @@ import jakarta.persistence.TemporalType;
 import lombok.Data;
 
 import com.example.persona.config.CustomRevisionListener;
-import org.hibernate.annotations.RevisionEntity;
-import org.hibernate.annotations.RevisionNumber;
-import org.hibernate.annotations.RevisionTimestamp;
-import org.hibernate.annotations.Temporal;
+import org.envers.annotations.RevisionEntity;
+import org.envers.annotations.RevisionNumber;
+import org.envers.annotations.RevisionTimestamp;
+import org.envers.annotations.Temporal;
 
 
 @Entity
