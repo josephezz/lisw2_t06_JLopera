@@ -31,3 +31,12 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Workspace-specific files ###
+*.eml
+*.userlibraries
+
+### OS and logs ###
+.DS_Store
+Thumbs.db
+*.log
